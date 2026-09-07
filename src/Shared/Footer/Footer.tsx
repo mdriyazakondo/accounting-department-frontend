@@ -10,7 +10,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-950 text-gray-300">
+    <footer className="border-t border-slate-200 bg-white text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
       {/* Main Footer */}
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -22,13 +22,17 @@ const Footer = () => {
               </div>
 
               <div>
-                <h2 className="text-xl font-bold text-white">ABC College</h2>
+                <h2 className="text-xl font-bold text-slate-950 dark:text-white">
+                  ABC College
+                </h2>
 
-                <p className="text-xs text-gray-500">Excellence in Education</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
+                  Excellence in Education
+                </p>
               </div>
             </Link>
 
-            <p className="max-w-sm text-sm leading-7 text-gray-400">
+            <p className="max-w-sm text-sm leading-7 text-slate-600 dark:text-slate-400">
               ABC College is committed to providing quality education,
               developing talented students, and building a brighter future for
               the next generation.
@@ -72,49 +76,49 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="mb-5 text-lg font-semibold text-white">
+            <h3 className="mb-5 text-lg font-semibold text-slate-950 dark:text-white">
               Quick Links
             </h3>
 
             <div className="space-y-3">
               <Link
                 to="/"
-                className="block text-sm text-gray-400 transition hover:translate-x-1 hover:text-blue-500"
+                className="block text-sm text-slate-600 transition hover:translate-x-1 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
               >
                 Home
               </Link>
 
               <Link
                 to="/about"
-                className="block text-sm text-gray-400 transition hover:translate-x-1 hover:text-blue-500"
+                className="block text-sm text-slate-600 transition hover:translate-x-1 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
               >
                 About Us
               </Link>
 
               <Link
                 to="/teachers"
-                className="block text-sm text-gray-400 transition hover:translate-x-1 hover:text-blue-500"
+                className="block text-sm text-slate-600 transition hover:translate-x-1 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
               >
                 Our Teachers
               </Link>
 
               <Link
                 to="/notice"
-                className="block text-sm text-gray-400 transition hover:translate-x-1 hover:text-blue-500"
+                className="block text-sm text-slate-600 transition hover:translate-x-1 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
               >
                 Notice Board
               </Link>
 
               <Link
                 to="/events"
-                className="block text-sm text-gray-400 transition hover:translate-x-1 hover:text-blue-500"
+                className="block text-sm text-slate-600 transition hover:translate-x-1 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
               >
                 Events
               </Link>
 
               <Link
                 to="/contact"
-                className="block text-sm text-gray-400 transition hover:translate-x-1 hover:text-blue-500"
+                className="block text-sm text-slate-600 transition hover:translate-x-1 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
               >
                 Contact Us
               </Link>
@@ -123,49 +127,49 @@ const Footer = () => {
 
           {/* Important Links */}
           <div>
-            <h3 className="mb-5 text-lg font-semibold text-white">
+            <h3 className="mb-5 text-lg font-semibold text-slate-950 dark:text-white">
               Important Links
             </h3>
 
             <div className="space-y-3">
               <Link
                 to="/admission"
-                className="block text-sm text-gray-400 transition hover:translate-x-1 hover:text-blue-500"
+                className="block text-sm text-slate-600 transition hover:translate-x-1 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
               >
                 Admission
               </Link>
 
               <Link
                 to="/departments"
-                className="block text-sm text-gray-400 transition hover:translate-x-1 hover:text-blue-500"
+                className="block text-sm text-slate-600 transition hover:translate-x-1 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
               >
                 Departments
               </Link>
 
               <Link
                 to="/results"
-                className="block text-sm text-gray-400 transition hover:translate-x-1 hover:text-blue-500"
+                className="block text-sm text-slate-600 transition hover:translate-x-1 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
               >
                 Exam Results
               </Link>
 
               <Link
                 to="/routine"
-                className="block text-sm text-gray-400 transition hover:translate-x-1 hover:text-blue-500"
+                className="block text-sm text-slate-600 transition hover:translate-x-1 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
               >
                 Class Routine
               </Link>
 
               <Link
                 to="/library"
-                className="block text-sm text-gray-400 transition hover:translate-x-1 hover:text-blue-500"
+                className="block text-sm text-slate-600 transition hover:translate-x-1 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
               >
                 Digital Library
               </Link>
 
               <Link
                 to="/student-portal"
-                className="block text-sm text-gray-400 transition hover:translate-x-1 hover:text-blue-500"
+                className="block text-sm text-slate-600 transition hover:translate-x-1 hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
               >
                 Student Portal
               </Link>
@@ -174,7 +178,7 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h3 className="mb-5 text-lg font-semibold text-white">
+            <h3 className="mb-5 text-lg font-semibold text-slate-950 dark:text-white">
               Contact Us
             </h3>
 
@@ -183,7 +187,7 @@ const Footer = () => {
               <div className="flex gap-3">
                 <MapPin size={20} className="mt-1 shrink-0 text-blue-500" />
 
-                <p className="text-sm leading-6 text-gray-400">
+                <p className="text-sm leading-6 text-slate-600 dark:text-slate-400">
                   College Road, Dhaka,
                   <br />
                   Bangladesh
@@ -195,9 +199,11 @@ const Footer = () => {
                 <Phone size={19} className="mt-1 shrink-0 text-blue-500" />
 
                 <div>
-                  <p className="text-sm text-gray-400">+880 1700-000000</p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                    +880 1700-000000
+                  </p>
 
-                  <p className="mt-1 text-xs text-gray-600">
+                  <p className="mt-1 text-xs text-slate-500 dark:text-slate-500">
                     Saturday - Thursday
                   </p>
                 </div>
@@ -207,7 +213,7 @@ const Footer = () => {
               <div className="flex gap-3">
                 <Mail size={19} className="mt-1 shrink-0 text-blue-500" />
 
-                <p className="break-all text-sm text-gray-400">
+                <p className="break-all text-sm text-slate-600 dark:text-slate-400">
                   info@abccollege.edu.bd
                 </p>
               </div>
@@ -217,10 +223,10 @@ const Footer = () => {
       </div>
 
       {/* Bottom Footer */}
-      <div className="border-t border-gray-800">
+      <div className="border-t border-slate-200 dark:border-slate-800">
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-5 sm:px-6 md:flex-row lg:px-8">
           {/* Copyright */}
-          <p className="text-center text-sm text-gray-500 md:text-left">
+          <p className="text-center text-sm text-slate-500 dark:text-slate-400 md:text-left">
             © {new Date().getFullYear()} ABC College. All rights reserved.
           </p>
 
@@ -228,14 +234,14 @@ const Footer = () => {
           <div className="flex items-center gap-5">
             <Link
               to="/privacy-policy"
-              className="text-sm text-gray-500 transition hover:text-blue-500"
+              className="text-sm text-slate-500 transition hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
             >
               Privacy Policy
             </Link>
 
             <Link
               to="/terms"
-              className="text-sm text-gray-500 transition hover:text-blue-500"
+              className="text-sm text-slate-500 transition hover:text-blue-600 dark:text-slate-400 dark:hover:text-blue-400"
             >
               Terms & Conditions
             </Link>
