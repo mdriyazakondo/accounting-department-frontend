@@ -2,15 +2,13 @@ import { createBrowserRouter } from "react-router";
 
 import MainLayout from "../layout/MainLayout";
 
-import HomePage from "../pages/HomePage";
-import SitePage from "../pages/SitePage";
-import DashboardPage from "../pages/DashboardPage";
-
 import TeacherRegistrationForm from "../auth/Teacher";
 import StudentRegistrationForm from "../auth/StudentLogin";
 import OfficeAssistantRegistrationForm from "../auth/OfficeAssistantRegistrationForm";
 import LoginForm from "../auth/Login";
 import AuthLayout from "../layout/AuthLayout";
+import DashboardLayout from "../layout/DashbordLyaout";
+import Homepage from "../pages/HomePage";
 
 const router = createBrowserRouter([
   // Main Website
@@ -20,20 +18,17 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />,
-      },
-      {
-        path: "dashboard",
-        element: <DashboardPage />,
-      },
-      {
-        path: "*",
-        element: <SitePage />,
+        element: <Homepage />,
       },
     ],
   },
 
   // Auth Pages
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    children: [],
+  },
   {
     path: "/auth",
     element: <AuthLayout />,
