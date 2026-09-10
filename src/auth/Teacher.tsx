@@ -12,22 +12,9 @@ import {
   Upload,
   Phone,
   BookOpen,
+  Droplets,
 } from "lucide-react";
-
-interface TeacherFormData {
-  photo: FileList;
-  name: string;
-  email: string;
-  password: string;
-  teacherId: string;
-  designation: string;
-  department: string;
-  subject: string;
-  phone: string;
-  qualification: string;
-  joiningYear: string;
-  address: string;
-}
+import type { TeacherFormData } from "../types/LoignType";
 
 const TeacherRegistrationForm = () => {
   const {
@@ -240,6 +227,70 @@ const TeacherRegistrationForm = () => {
                     </p>
                   )}
                 </div>
+                {/* Blood Group */}
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    Blood Group <span className="text-red-500">*</span>
+                  </label>
+
+                  <div className="relative">
+                    <Droplets
+                      size={18}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                    />
+
+                    <select
+                      {...register("bloodGroup", {
+                        required: "Blood group is required",
+                      })}
+                      className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white"
+                    >
+                      <option value="">Select Blood Group</option>
+                      <option value="A+">A+</option>
+                      <option value="A-">A-</option>
+                      <option value="B+">B+</option>
+                      <option value="B-">B-</option>
+                      <option value="AB+">AB+</option>
+                      <option value="AB-">AB-</option>
+                      <option value="O+">O+</option>
+                      <option value="O-">O-</option>
+                    </select>
+                  </div>
+
+                  {errors.bloodGroup && (
+                    <p className="mt-1 text-xs text-red-500">
+                      {errors.bloodGroup.message}
+                    </p>
+                  )}
+                </div>
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    Role <span className="text-red-500">*</span>
+                  </label>
+
+                  <div className="relative">
+                    <CalendarDays
+                      size={18}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                    />
+
+                    <select
+                      {...register("role", {
+                        required: "Role is required",
+                      })}
+                      className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white"
+                    >
+                      <option value="">Select Role</option>
+                      <option value="Teacher">Teacher</option>
+                    </select>
+                  </div>
+
+                  {errors.role && (
+                    <p className="mt-1 text-xs text-red-500">
+                      {errors.role.message}
+                    </p>
+                  )}
+                </div>
               </div>
             </section>
 
@@ -255,6 +306,7 @@ const TeacherRegistrationForm = () => {
 
               <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
                 {/* Teacher ID */}
+
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                     Teacher ID <span className="text-red-500">*</span>

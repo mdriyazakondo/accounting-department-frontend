@@ -1,4 +1,4 @@
-import { GraduationCap, Menu, X, Search, ChevronDown } from "lucide-react";
+import { GraduationCap, Menu, X, ChevronDown, Sun, Moon } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router";
 
@@ -10,61 +10,77 @@ type NavbarProps = {
 const Navbar = ({ isDarkMode, onThemeChange }: NavbarProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isDepartmentOpen, setIsDepartmentOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
+
   const departments = ["Accounting", "Management", "Economics", "English"];
-  const searchItems = [
-    { label: "Home", path: "/" },
-    { label: "About ABC College", path: "/about" },
-    { label: "Student dashboard", path: "/dashboard" },
-    { label: "Teachers", path: "/teachers" },
-    { label: "Events", path: "/events" },
-    { label: "Admission", path: "/admission" },
-    { label: "Contact", path: "/contact" },
-  ];
-  const searchResults = searchItems.filter((item) =>
-    item.label.toLowerCase().includes(searchQuery.toLowerCase()),
-  );
+
+  // ================= THEME TOGGLE =================
+  const handleThemeToggle = () => {
+    onThemeChange(!isDarkMode);
+  };
+
+  // ================= CLOSE MOBILE MENU =================
+  const closeMobileMenu = () => {
+    setIsMenuOpen(false);
+    setIsDepartmentOpen(false);
+  };
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white shadow-sm dark:border-slate-800 dark:bg-slate-900">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-200 bg-white/95 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/95">
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Navbar Main */}
-        <div className="flex h-20 items-center justify-between">
+        {/* =====================================================
+            NAVBAR MAIN
+        ====================================================== */}
+        <div className="flex min-h-20 items-center justify-between gap-4">
           {/* ================= LOGO ================= */}
-          <a href="/" className="flex items-center gap-3">
-            <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-blue-600 text-white shadow-md">
-              <GraduationCap size={27} />
+          <Link
+            to="/"
+            onClick={closeMobileMenu}
+            className="flex shrink-0 items-center gap-3"
+          >
+            {/* Logo Icon */}
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600 text-white shadow-md transition-transform duration-300 hover:scale-105 sm:h-11 sm:w-11">
+              <GraduationCap size={25} />
             </div>
+
+            {/* Logo Text */}
             <div>
-              <h1 className="text-lg font-bold leading-tight text-gray-900 dark:text-white sm:text-xl">
+              <h1 className="text-base font-bold leading-tight text-gray-900 dark:text-white sm:text-lg lg:text-xl">
                 ABC College
               </h1>
-              <p className="text-[10px] font-medium text-gray-500 dark:text-slate-400 sm:text-xs">
+
+              <p className="text-[9px] font-medium text-gray-500 dark:text-slate-400 sm:text-[10px]">
                 Excellence in Education
               </p>
             </div>
-          </a>
-          {/* ================= DESKTOP MENU ================= */}
-          <div className="hidden items-center gap-1 lg:flex">
-            {/* Home */}
-            <a
-              href="/"
-              className="rounded-lg px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+          </Link>
+
+          {/* =====================================================
+              DESKTOP MENU
+          ====================================================== */}
+          <div className="hidden items-center gap-0.5 lg:flex">
+            {/* ================= HOME ================= */}
+            <Link
+              to="/"
+              className="rounded-lg px-3 py-2.5 text-sm font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400 xl:px-4"
             >
               Home
-            </a>
-            {/* About */}
-            <a
-              href="/about"
-              className="rounded-lg px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+            </Link>
+
+            {/* ================= ABOUT ================= */}
+            <Link
+              to="/about"
+              className="rounded-lg px-3 py-2.5 text-sm font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400 xl:px-4"
             >
               About
-            </a>
-            {/* ================= DEPARTMENT DROPDOWN ================= */}
+            </Link>
+
+            {/* =================================================
+                DEPARTMENTS
+            ================================================== */}
             <div className="group relative">
               <button
                 type="button"
-                className="flex items-center gap-1 rounded-lg px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+                className="flex items-center gap-1 rounded-lg px-3 py-2.5 text-sm font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400 xl:px-4"
               >
                 Departments
                 <ChevronDown
@@ -72,259 +88,267 @@ const Navbar = ({ isDarkMode, onThemeChange }: NavbarProps) => {
                   className="transition-transform duration-200 group-hover:rotate-180"
                 />
               </button>
-              {/* Dropdown */}
-              <div className="invisible absolute left-0 top-full mt-2 w-52 translate-y-2 rounded-xl border border-gray-100 bg-white p-2 opacity-0 shadow-xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-slate-700 dark:bg-slate-900">
+
+              {/* Department Dropdown */}
+              <div className="invisible absolute left-0 top-full mt-2 w-56 translate-y-2 rounded-xl border border-gray-100 bg-white p-2 opacity-0 shadow-xl transition-all duration-200 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 dark:border-slate-700 dark:bg-slate-900">
                 {departments.map((department) => (
-                  <a
+                  <Link
                     key={department}
-                    href={`/departments/${department.toLowerCase()}`}
-                    className="block rounded-lg px-4 py-3 text-sm font-medium text-gray-700 transition hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+                    to={`/departments/${department.toLowerCase()}`}
+                    className="block rounded-lg px-4 py-3 text-sm font-medium text-gray-700 transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400"
                   >
                     {department}
-                  </a>
+                  </Link>
                 ))}
               </div>
             </div>
-            {/* Teachers */}
-            <a
-              href="/teachers"
-              className="rounded-lg px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+
+            {/* ================= TEACHERS ================= */}
+            <Link
+              to="/teachers"
+              className="rounded-lg px-3 py-2.5 text-sm font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400 xl:px-4"
             >
               Teachers
-            </a>
-            {/* Notice */}
-            <a
-              href="/notice"
-              className="rounded-lg px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+            </Link>
+
+            {/* ================= NOTICE ================= */}
+            <Link
+              to="/notice"
+              className="rounded-lg px-3 py-2.5 text-sm font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400 xl:px-4"
             >
               Notice
-            </a>
-            {/* Events */}
-            <a
-              href="/events"
-              className="rounded-lg px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+            </Link>
+
+            {/* ================= EVENTS ================= */}
+            <Link
+              to="/events"
+              className="rounded-lg px-3 py-2.5 text-sm font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400 xl:px-4"
             >
               Events
-            </a>
-            {/* Contact */}
-            <a
-              href="/contact"
-              className="rounded-lg px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+            </Link>
+
+            {/* ================= CONTACT ================= */}
+            <Link
+              to="/contact"
+              className="rounded-lg px-3 py-2.5 text-sm font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400 xl:px-4"
             >
               Contact
-            </a>
-            <a
-              href="/dashboard"
-              className="rounded-lg px-4 py-2.5 text-sm font-semibold text-gray-700 transition hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+            </Link>
+
+            {/* ================= DASHBOARD ================= */}
+            <Link
+              to="/dashboard"
+              className="rounded-lg px-3 py-2.5 text-sm font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400 xl:px-4"
             >
               Dashboard
-            </a>
+            </Link>
           </div>
-          {/* ================= RIGHT SIDE ================= */}
+
+          {/* =====================================================
+              DESKTOP RIGHT SIDE
+          ====================================================== */}
           <div className="hidden items-center gap-3 lg:flex">
-            {/* Search */}
+            {/* ================= THEME TOGGLE ================= */}
             <button
               type="button"
-              aria-label="Search"
-              aria-expanded={isSearchOpen}
-              onClick={() => setIsSearchOpen(!isSearchOpen)}
-              className="flex h-10 w-10 items-center justify-center rounded-full text-gray-600 transition hover:bg-gray-100 hover:text-blue-600 dark:text-slate-300 dark:hover:bg-slate-800"
+              onClick={handleThemeToggle}
+              aria-label="Toggle theme"
+              aria-pressed={isDarkMode}
+              className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-full border border-gray-200 bg-gray-100 text-gray-700 transition-all duration-300 hover:scale-105 hover:bg-gray-200 dark:border-slate-700 dark:bg-slate-800 dark:text-yellow-400 dark:hover:bg-slate-700"
             >
-              <Search size={20} />
+              {/* Moon */}
+              <span
+                className={`absolute transition-all duration-300 ${
+                  isDarkMode
+                    ? "rotate-0 scale-100 opacity-100"
+                    : "-rotate-90 scale-0 opacity-0"
+                }`}
+              >
+                <Moon size={19} />
+              </span>
+
+              {/* Sun */}
+              <span
+                className={`absolute transition-all duration-300 ${
+                  isDarkMode
+                    ? "rotate-90 scale-0 opacity-0"
+                    : "rotate-0 scale-100 opacity-100"
+                }`}
+              >
+                <Sun size={19} />
+              </span>
             </button>
-            {/* ================= TOGGLE UI ONLY ================= */}
-            <label className="relative inline-flex cursor-pointer items-center">
-              <input
-                type="checkbox"
-                checked={isDarkMode}
-                onChange={(event) => onThemeChange(event.target.checked)}
-                className="peer sr-only"
-                aria-label="Toggle dark mode"
-              />
-              <div className="h-6 w-11 rounded-full bg-gray-300 transition-colors peer-checked:bg-blue-600 dark:bg-slate-700">
-                <div className="absolute left-1 top-1 h-4 w-4 rounded-full bg-white shadow-md transition-transform duration-200 peer-checked:translate-x-5" />
-              </div>
-            </label>
-            {/* Admission */}
-            <a
-              href="/admission"
-              className="rounded-lg bg-blue-600 px-5 py-2.5 text-sm font-semibold text-white shadow-md transition hover:bg-blue-700"
+
+            {/* ================= LOGIN ================= */}
+            <Link
+              to="/auth/login"
+              className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white shadow-md transition-all duration-200 hover:-translate-y-0.5 hover:bg-blue-700 hover:shadow-lg xl:px-5"
             >
-              Admission
-            </a>
+              Login
+            </Link>
           </div>
-          {/* ================= MOBILE BUTTON ================= */}
-          <button
-            type="button"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg text-gray-700 transition hover:bg-gray-100 dark:text-slate-200 dark:hover:bg-slate-800 lg:hidden"
-            aria-label="Open menu"
-          >
-            {isMenuOpen ? <X size={25} /> : <Menu size={25} />}
-          </button>
+
+          {/* =====================================================
+              MOBILE RIGHT SIDE
+          ====================================================== */}
+          <div className="flex items-center gap-2 lg:hidden">
+            {/* ================= MOBILE THEME ================= */}
+            <button
+              type="button"
+              onClick={handleThemeToggle}
+              aria-label="Toggle theme"
+              aria-pressed={isDarkMode}
+              className="relative flex h-10 w-10 items-center justify-center overflow-hidden rounded-lg border border-gray-200 bg-gray-100 text-gray-700 transition-all duration-300 hover:bg-gray-200 dark:border-slate-700 dark:bg-slate-800 dark:text-yellow-400 dark:hover:bg-slate-700"
+            >
+              {/* Moon */}
+              <span
+                className={`absolute transition-all duration-300 ${
+                  isDarkMode
+                    ? "rotate-0 scale-100 opacity-100"
+                    : "-rotate-90 scale-0 opacity-0"
+                }`}
+              >
+                <Moon size={20} />
+              </span>
+
+              {/* Sun */}
+              <span
+                className={`absolute transition-all duration-300 ${
+                  isDarkMode
+                    ? "rotate-90 scale-0 opacity-0"
+                    : "rotate-0 scale-100 opacity-100"
+                }`}
+              >
+                <Sun size={20} />
+              </span>
+            </button>
+
+            {/* ================= MOBILE MENU BUTTON ================= */}
+            <button
+              type="button"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="flex h-10 w-10 items-center justify-center rounded-lg text-gray-700 transition-all duration-200 hover:bg-gray-100 dark:text-slate-200 dark:hover:bg-slate-800"
+              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMenuOpen}
+            >
+              {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
         </div>
-        {isSearchOpen && (
-          <div className="border-t border-slate-200 pb-4 pt-4 dark:border-slate-800">
-            <div className="relative">
-              <Search
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
-                size={18}
-              />
-              <input
-                autoFocus
-                value={searchQuery}
-                onChange={(event) => setSearchQuery(event.target.value)}
-                placeholder="Search pages, departments, and student services"
-                className="h-12 w-full rounded-xl border border-slate-200 bg-slate-50 pl-11 pr-4 text-sm text-slate-900 outline-none transition focus:border-blue-500 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
-              />
-            </div>
-            <div className="mt-2 grid gap-1 sm:grid-cols-2 lg:grid-cols-3">
-              {searchResults.map((item) => (
-                <Link
-                  key={item.path}
-                  to={item.path}
-                  onClick={() => {
-                    setIsSearchOpen(false);
-                    setSearchQuery("");
-                  }}
-                  className="rounded-lg px-3 py-2 text-sm font-semibold text-slate-700 transition hover:bg-blue-50 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
-                >
-                  {item.label}
-                </Link>
-              ))}
-              {searchResults.length === 0 && (
-                <p className="px-3 py-2 text-sm text-slate-500">
-                  No matching pages found.
-                </p>
-              )}
-            </div>
-          </div>
-        )}
-        {/* ================= MOBILE MENU ================= */}
+
+        {/* =====================================================
+            MOBILE MENU
+        ====================================================== */}
         <div
-          className={`overflow-hidden transition-all duration-300 lg:hidden ${isMenuOpen ? "max-h-[800px] pb-5" : "max-h-0"}`}
+          className={`overflow-hidden transition-all duration-300 lg:hidden ${
+            isMenuOpen ? "max-h-[1000px] pb-5" : "max-h-0"
+          }`}
         >
           <div className="space-y-1 rounded-xl border border-gray-100 bg-gray-50 p-3 dark:border-slate-700 dark:bg-slate-950">
-            {/* Home */}
+            {/* ================= HOME ================= */}
             <Link
               to="/"
-              onClick={() => setIsMenuOpen(false)}
-              className="block rounded-lg px-4 py-3 font-semibold text-gray-700 transition hover:bg-blue-100 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+              onClick={closeMobileMenu}
+              className="block rounded-lg px-4 py-3 font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-100 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400"
             >
               Home
             </Link>
-            {/* About */}
+
+            {/* ================= ABOUT ================= */}
             <Link
               to="/about"
-              onClick={() => setIsMenuOpen(false)}
-              className="block rounded-lg px-4 py-3 font-semibold text-gray-700 transition hover:bg-blue-100 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+              onClick={closeMobileMenu}
+              className="block rounded-lg px-4 py-3 font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-100 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400"
             >
               About
             </Link>
-            {/* ================= MOBILE DEPARTMENTS ================= */}
+
+            {/* =================================================
+                MOBILE DEPARTMENTS
+            ================================================== */}
             <button
               type="button"
               onClick={() => setIsDepartmentOpen(!isDepartmentOpen)}
-              className="flex w-full items-center justify-between rounded-lg px-4 py-3 font-semibold text-gray-700 transition hover:bg-blue-100 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+              className="flex w-full items-center justify-between rounded-lg px-4 py-3 font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-100 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400"
             >
-              Departments
+              <span>Departments</span>
+
               <ChevronDown
                 size={18}
-                className={`transition-transform duration-200 ${isDepartmentOpen ? "rotate-180" : ""}`}
+                className={`transition-transform duration-300 ${
+                  isDepartmentOpen ? "rotate-180" : ""
+                }`}
               />
             </button>
+
+            {/* Department Items */}
             {isDepartmentOpen && (
-              <div className="ml-4 space-y-1 border-l-2 border-blue-200 pl-3">
+              <div className="ml-4 space-y-1 border-l-2 border-blue-200 pl-3 dark:border-blue-800">
                 {departments.map((department) => (
-                  <a
+                  <Link
                     key={department}
-                    href={`/departments/${department.toLowerCase()}`}
-                    onClick={() => setIsMenuOpen(false)}
-                    className="block rounded-lg px-4 py-2.5 text-sm text-gray-600 transition hover:bg-blue-50 hover:text-blue-600 dark:text-slate-300 dark:hover:bg-slate-800"
+                    to={`/departments/${department.toLowerCase()}`}
+                    onClick={closeMobileMenu}
+                    className="block rounded-lg px-4 py-2.5 text-sm font-medium text-gray-600 transition-all duration-200 hover:bg-blue-50 hover:text-blue-600 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-blue-400"
                   >
                     {department}
-                  </a>
+                  </Link>
                 ))}
               </div>
             )}
-            {/* Teachers */}
+
+            {/* ================= TEACHERS ================= */}
             <Link
               to="/teachers"
-              onClick={() => setIsMenuOpen(false)}
-              className="block rounded-lg px-4 py-3 font-semibold text-gray-700 transition hover:bg-blue-100 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+              onClick={closeMobileMenu}
+              className="block rounded-lg px-4 py-3 font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-100 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400"
             >
               Teachers
             </Link>
-            {/* Notice */}
+
+            {/* ================= NOTICE ================= */}
             <Link
               to="/notice"
-              onClick={() => setIsMenuOpen(false)}
-              className="block rounded-lg px-4 py-3 font-semibold text-gray-700 transition hover:bg-blue-100 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+              onClick={closeMobileMenu}
+              className="block rounded-lg px-4 py-3 font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-100 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400"
             >
               Notice
             </Link>
-            {/* Events */}
+
+            {/* ================= EVENTS ================= */}
             <Link
               to="/events"
-              onClick={() => setIsMenuOpen(false)}
-              className="block rounded-lg px-4 py-3 font-semibold text-gray-700 transition hover:bg-blue-100 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+              onClick={closeMobileMenu}
+              className="block rounded-lg px-4 py-3 font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-100 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400"
             >
               Events
             </Link>
-            {/* Contact */}
+
+            {/* ================= CONTACT ================= */}
             <Link
               to="/contact"
-              onClick={() => setIsMenuOpen(false)}
-              className="block rounded-lg px-4 py-3 font-semibold text-gray-700 transition hover:bg-blue-100 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+              onClick={closeMobileMenu}
+              className="block rounded-lg px-4 py-3 font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-100 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400"
             >
               Contact
             </Link>
+
+            {/* ================= DASHBOARD ================= */}
             <Link
               to="/dashboard"
-              onClick={() => setIsMenuOpen(false)}
-              className="block rounded-lg px-4 py-3 font-semibold text-gray-700 transition hover:bg-blue-100 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800"
+              onClick={closeMobileMenu}
+              className="block rounded-lg px-4 py-3 font-semibold text-gray-700 transition-all duration-200 hover:bg-blue-100 hover:text-blue-600 dark:text-slate-200 dark:hover:bg-slate-800 dark:hover:text-blue-400"
             >
               Dashboard
             </Link>
-            {/* ================= MOBILE ACTIONS ================= */}
-            <div className="mt-3 flex gap-2 border-t border-gray-200 pt-3 dark:border-slate-700">
-              {/* Search */}
-              <button
-                type="button"
-                onClick={() => {
-                  setIsSearchOpen(true);
-                  setIsMenuOpen(false);
-                }}
-                className="flex flex-1 items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white py-3 text-sm font-semibold text-gray-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200"
-              >
-                <Search size={18} /> Search
-              </button>
-              {/* Toggle UI */}
-              <div className="flex flex-1 items-center justify-center gap-3 rounded-lg border border-gray-200 bg-white py-3 dark:border-slate-700 dark:bg-slate-900">
-                <span className="text-sm font-semibold text-gray-700 dark:text-slate-200">
-                  Theme
-                </span>
-                <label className="relative inline-flex cursor-pointer items-center">
-                  <input
-                    type="checkbox"
-                    checked={isDarkMode}
-                    onChange={(event) => onThemeChange(event.target.checked)}
-                    className="peer sr-only"
-                    aria-label="Toggle dark mode"
-                  />
-                  <div className="h-6 w-11 rounded-full bg-gray-300 transition-colors peer-checked:bg-blue-600 dark:bg-slate-700">
-                    <div className="absolute left-1 top-1 h-4 w-4 rounded-full bg-white shadow-md transition-transform duration-200 peer-checked:translate-x-5" />
-                  </div>
-                </label>
-              </div>
-            </div>
-            {/* Admission */}
+
+            {/* ================= MOBILE LOGIN ================= */}
             <Link
-              to="/admission"
-              onClick={() => setIsMenuOpen(false)}
-              className="mt-2 block rounded-lg bg-blue-600 py-3 text-center font-semibold text-white transition hover:bg-blue-700"
+              to="/auth/login"
+              onClick={closeMobileMenu}
+              className="mt-3 block rounded-lg bg-blue-600 py-3 text-center font-semibold text-white shadow-md transition-all duration-200 hover:bg-blue-700 hover:shadow-lg"
             >
-              Apply for Admission
+              Login
             </Link>
           </div>
         </div>
@@ -332,4 +356,5 @@ const Navbar = ({ isDarkMode, onThemeChange }: NavbarProps) => {
     </header>
   );
 };
+
 export default Navbar;

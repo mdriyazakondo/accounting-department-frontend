@@ -4,22 +4,23 @@ import {
   Mail,
   Lock,
   Briefcase,
-  Droplets,
   IdCard,
   Building2,
-  GraduationCap,
   MapPin,
   CalendarDays,
   Upload,
+  Phone,
+  Droplets,
 } from "lucide-react";
-import type { StudentFormData } from "../types/LoignType";
 
-const StudentRegistrationForm = () => {
+import type { OfficeAssistantFormData } from "../types/LoignType";
+
+const OfficeAssistantRegistrationForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<StudentFormData>();
+  } = useForm<OfficeAssistantFormData>();
 
   return (
     <div className="min-h-screen bg-slate-100 px-4 py-10 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-white sm:px-6 lg:px-8">
@@ -27,15 +28,16 @@ const StudentRegistrationForm = () => {
         {/* Header */}
         <div className="mb-8 text-center">
           <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-slate-900 text-white shadow-lg dark:bg-white dark:text-slate-900">
-            <GraduationCap size={30} />
+            <Briefcase size={30} />
           </div>
 
           <h1 className="text-3xl font-bold text-slate-900 dark:text-white sm:text-4xl">
-            Student Registration
+            Office Assistant Registration
           </h1>
 
           <p className="mt-2 text-sm text-slate-500 dark:text-slate-400 sm:text-base">
-            Create a student profile by providing the information below.
+            Create an office assistant profile by providing the information
+            below.
           </p>
         </div>
 
@@ -47,16 +49,16 @@ const StudentRegistrationForm = () => {
           {/* Form Header */}
           <div className="border-b border-slate-200 bg-slate-50 px-6 py-5 dark:border-slate-800 dark:bg-slate-800/70 sm:px-8">
             <h2 className="text-xl font-bold text-slate-900 dark:text-white">
-              Student Information
+              Office Assistant Information
             </h2>
 
             <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-              Please fill in all required information carefully.
+              Please provide accurate personal and professional information.
             </p>
           </div>
 
           <div className="space-y-10 p-6 sm:p-8">
-            {/* ================= PHOTO ================= */}
+            {/* ================= PROFILE PHOTO ================= */}
             <section>
               <h3 className="mb-5 text-lg font-bold text-slate-900 dark:text-white">
                 Profile Photo
@@ -79,7 +81,7 @@ const StudentRegistrationForm = () => {
                   />
 
                   <span className="text-sm font-semibold text-slate-700 dark:text-slate-200">
-                    Choose Photo
+                    Choose Office Assistant Photo
                   </span>
 
                   <span className="mt-1 text-xs text-slate-400">
@@ -96,7 +98,7 @@ const StudentRegistrationForm = () => {
               </div>
             </section>
 
-            {/* ================= PERSONAL INFO ================= */}
+            {/* ================= PERSONAL INFORMATION ================= */}
             <section>
               <div className="mb-5 flex items-center gap-3">
                 <div className="h-6 w-1 rounded-full bg-slate-900 dark:bg-white" />
@@ -124,7 +126,7 @@ const StudentRegistrationForm = () => {
                         required: "Name is required",
                       })}
                       placeholder="Enter full name"
-                      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white dark:focus:bg-slate-800"
+                      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white"
                     />
                   </div>
 
@@ -152,8 +154,8 @@ const StudentRegistrationForm = () => {
                       {...register("email", {
                         required: "Email is required",
                       })}
-                      placeholder="student@example.com"
-                      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white dark:focus:bg-slate-800"
+                      placeholder="office@example.com"
+                      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white"
                     />
                   </div>
 
@@ -186,7 +188,7 @@ const StudentRegistrationForm = () => {
                         },
                       })}
                       placeholder="Enter password"
-                      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white dark:focus:bg-slate-800"
+                      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white"
                     />
                   </div>
 
@@ -197,24 +199,33 @@ const StudentRegistrationForm = () => {
                   )}
                 </div>
 
-                {/* Position */}
+                {/* Phone */}
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Position
+                    Phone Number <span className="text-red-500">*</span>
                   </label>
 
                   <div className="relative">
-                    <Briefcase
+                    <Phone
                       size={18}
                       className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                     />
 
                     <input
-                      {...register("position")}
-                      placeholder="e.g. Student / CR"
-                      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white dark:focus:bg-slate-800"
+                      type="tel"
+                      {...register("phone", {
+                        required: "Phone number is required",
+                      })}
+                      placeholder="01XXXXXXXXX"
+                      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white"
                     />
                   </div>
+
+                  {errors.phone && (
+                    <p className="mt-1 text-xs text-red-500">
+                      {errors.phone.message}
+                    </p>
+                  )}
                 </div>
 
                 {/* Blood Group */}
@@ -254,10 +265,45 @@ const StudentRegistrationForm = () => {
                   )}
                 </div>
 
-                {/* Student ID */}
+                {/* Role */}
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Student ID Number <span className="text-red-500">*</span>
+                    Role
+                  </label>
+
+                  <div className="relative">
+                    <Briefcase
+                      size={18}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                    />
+
+                    <input
+                      type="text"
+                      value="Office Assistant"
+                      readOnly
+                      {...register("role")}
+                      className="w-full cursor-not-allowed rounded-xl border border-slate-200 bg-slate-100 px-11 py-3.5 text-sm text-slate-600 outline-none dark:border-slate-700 dark:bg-slate-800 dark:text-slate-400"
+                    />
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            {/* ================= PROFESSIONAL INFORMATION ================= */}
+            <section>
+              <div className="mb-5 flex items-center gap-3">
+                <div className="h-6 w-1 rounded-full bg-slate-900 dark:bg-white" />
+
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white">
+                  Professional Information
+                </h3>
+              </div>
+
+              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                {/* Employee ID */}
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    Employee ID <span className="text-red-500">*</span>
                   </label>
 
                   <div className="relative">
@@ -267,34 +313,61 @@ const StudentRegistrationForm = () => {
                     />
 
                     <input
-                      {...register("studentId", {
-                        required: "Student ID is required",
+                      {...register("employeeId", {
+                        required: "Employee ID is required",
                       })}
-                      placeholder="Enter student ID"
-                      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white dark:focus:bg-slate-800"
+                      placeholder="Enter employee ID"
+                      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white"
                     />
                   </div>
 
-                  {errors.studentId && (
+                  {errors.employeeId && (
                     <p className="mt-1 text-xs text-red-500">
-                      {errors.studentId.message}
+                      {errors.employeeId.message}
                     </p>
                   )}
                 </div>
-              </div>
-            </section>
 
-            {/* ================= ACADEMIC INFO ================= */}
-            <section>
-              <div className="mb-5 flex items-center gap-3">
-                <div className="h-6 w-1 rounded-full bg-slate-900 dark:bg-white" />
+                {/* Designation */}
+                <div>
+                  <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
+                    Designation <span className="text-red-500">*</span>
+                  </label>
 
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                  Academic Information
-                </h3>
-              </div>
+                  <div className="relative">
+                    <Briefcase
+                      size={18}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
+                    />
 
-              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                    <select
+                      {...register("designation", {
+                        required: "Designation is required",
+                      })}
+                      className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white"
+                    >
+                      <option value="">Select Designation</option>
+                      <option value="Office Assistant">Office Assistant</option>
+                      <option value="Senior Office Assistant">
+                        Senior Office Assistant
+                      </option>
+                      <option value="Administrative Assistant">
+                        Administrative Assistant
+                      </option>
+                      <option value="Office Executive">Office Executive</option>
+                      <option value="Data Entry Operator">
+                        Data Entry Operator
+                      </option>
+                    </select>
+                  </div>
+
+                  {errors.designation && (
+                    <p className="mt-1 text-xs text-red-500">
+                      {errors.designation.message}
+                    </p>
+                  )}
+                </div>
+
                 {/* Department */}
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
@@ -311,20 +384,16 @@ const StudentRegistrationForm = () => {
                       {...register("department", {
                         required: "Department is required",
                       })}
-                      className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white"
+                      className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white"
                     >
                       <option value="">Select Department</option>
-                      <option value="Accounting">Accounting</option>
-                      <option value="Management">Management</option>
-                      <option value="Marketing">Marketing</option>
-                      <option value="Finance">Finance & Banking</option>
-                      <option value="Economics">Economics</option>
-                      <option value="English">English</option>
-                      <option value="Bangla">Bangla</option>
-                      <option value="History">History</option>
-                      <option value="Political Science">
-                        Political Science
-                      </option>
+                      <option value="Administration">Administration</option>
+                      <option value="Accounts">Accounts</option>
+                      <option value="Admission">Admission</option>
+                      <option value="Examination">Examination</option>
+                      <option value="Library">Library</option>
+                      <option value="Student Affairs">Student Affairs</option>
+                      <option value="Human Resources">Human Resources</option>
                     </select>
                   </div>
 
@@ -335,47 +404,10 @@ const StudentRegistrationForm = () => {
                   )}
                 </div>
 
-                {/* Class Role */}
+                {/* Joining Year */}
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Class Role <span className="text-red-500">*</span>
-                  </label>
-
-                  <div className="relative">
-                    <GraduationCap
-                      size={18}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
-                    />
-
-                    <select
-                      {...register("classRole", {
-                        required: "Class role is required",
-                      })}
-                      className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white"
-                    >
-                      <option value="">Select Class Role</option>
-                      <option value="General Student">General Student</option>
-                      <option value="Class Representative">
-                        Class Representative
-                      </option>
-                      <option value="Assistant Class Representative">
-                        Assistant Class Representative
-                      </option>
-                      <option value="Group Leader">Group Leader</option>
-                    </select>
-                  </div>
-
-                  {errors.classRole && (
-                    <p className="mt-1 text-xs text-red-500">
-                      {errors.classRole.message}
-                    </p>
-                  )}
-                </div>
-
-                {/* Year */}
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Academic Year <span className="text-red-500">*</span>
+                    Joining Year <span className="text-red-500">*</span>
                   </label>
 
                   <div className="relative">
@@ -385,121 +417,25 @@ const StudentRegistrationForm = () => {
                     />
 
                     <select
-                      {...register("year", {
-                        required: "Academic year is required",
+                      {...register("joiningYear", {
+                        required: "Joining year is required",
                       })}
-                      className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white"
+                      className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white"
                     >
-                      <option value="">Select Year</option>
+                      <option value="">Select Joining Year</option>
+                      <option value="2020">2020</option>
+                      <option value="2021">2021</option>
+                      <option value="2022">2022</option>
+                      <option value="2023">2023</option>
                       <option value="2024">2024</option>
                       <option value="2025">2025</option>
                       <option value="2026">2026</option>
-                      <option value="2027">2027</option>
-                      <option value="2028">2028</option>
-                      <option value="2029">2029</option>
                     </select>
                   </div>
 
-                  {errors.year && (
+                  {errors.joiningYear && (
                     <p className="mt-1 text-xs text-red-500">
-                      {errors.year.message}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Role <span className="text-red-500">*</span>
-                  </label>
-
-                  <div className="relative">
-                    <CalendarDays
-                      size={18}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
-                    />
-
-                    <select
-                      {...register("role", {
-                        required: "Role is required",
-                      })}
-                      className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white"
-                    >
-                      <option value="">Select Role</option>
-                      <option value="Student">Student</option>
-                    </select>
-                  </div>
-
-                  {errors.role && (
-                    <p className="mt-1 text-xs text-red-500">
-                      {errors.role.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-            </section>
-
-            {/* ================= FAMILY INFO ================= */}
-            <section>
-              <div className="mb-5 flex items-center gap-3">
-                <div className="h-6 w-1 rounded-full bg-slate-900 dark:bg-white" />
-
-                <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-                  Family Information
-                </h3>
-              </div>
-
-              <div className="grid grid-cols-1 gap-5 md:grid-cols-2">
-                {/* Father */}
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Father's Name <span className="text-red-500">*</span>
-                  </label>
-
-                  <div className="relative">
-                    <User
-                      size={18}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
-                    />
-
-                    <input
-                      {...register("fatherName", {
-                        required: "Father's name is required",
-                      })}
-                      placeholder="Enter father's name"
-                      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white dark:focus:bg-slate-800"
-                    />
-                  </div>
-
-                  {errors.fatherName && (
-                    <p className="mt-1 text-xs text-red-500">
-                      {errors.fatherName.message}
-                    </p>
-                  )}
-                </div>
-
-                {/* Mother */}
-                <div>
-                  <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Mother's Name <span className="text-red-500">*</span>
-                  </label>
-
-                  <div className="relative">
-                    <User
-                      size={18}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
-                    />
-
-                    <input
-                      {...register("motherName", {
-                        required: "Mother's name is required",
-                      })}
-                      placeholder="Enter mother's name"
-                      className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white dark:focus:bg-slate-800"
-                    />
-                  </div>
-
-                  {errors.motherName && (
-                    <p className="mt-1 text-xs text-red-500">
-                      {errors.motherName.message}
+                      {errors.joiningYear.message}
                     </p>
                   )}
                 </div>
@@ -527,8 +463,8 @@ const StudentRegistrationForm = () => {
                     required: "Address is required",
                   })}
                   rows={4}
-                  placeholder="Enter your full address..."
-                  className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white dark:focus:bg-slate-800"
+                  placeholder="Enter office assistant's full address..."
+                  className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white"
                 />
               </div>
 
@@ -546,7 +482,7 @@ const StudentRegistrationForm = () => {
               type="submit"
               className="rounded-xl bg-slate-900 px-8 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-slate-800 active:scale-95 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
             >
-              Register Student
+              Register Office Assistant
             </button>
           </div>
         </form>
@@ -555,4 +491,4 @@ const StudentRegistrationForm = () => {
   );
 };
 
-export default StudentRegistrationForm;
+export default OfficeAssistantRegistrationForm;
