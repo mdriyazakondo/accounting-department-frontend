@@ -63,7 +63,7 @@ const SitePage = () => {
       });
 
   return (
-    <main className="mx-auto flex min-h-[65vh] max-w-7xl items-center px-4 py-20 sm:px-6 lg:px-8">
+    <main className="mx-auto flex min-h-[65vh] max-w-7xl items-center px-4 py-20 sm:px-6 lg:px-8 ">
       <div className="max-w-2xl">
         <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-xl bg-blue-600 text-white">
           <Building2 size={28} />

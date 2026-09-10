@@ -1,4 +1,7 @@
 import { GraduationCap, MapPin, Phone, Mail, ArrowUp } from "lucide-react";
+import { BsInstagram, BsYoutube } from "react-icons/bs";
+import { FaFacebook } from "react-icons/fa";
+import { LiaLinkedin } from "react-icons/lia";
 import { Link } from "react-router";
 
 const Footer = () => {
@@ -39,39 +42,39 @@ const Footer = () => {
             </p>
 
             {/* Social Media */}
-            {/* <div className="mt-6 flex gap-3">
+            <div className="mt-6 flex gap-3">
               <button
                 type="button"
                 aria-label="Facebook"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-900 text-gray-400 transition hover:bg-blue-600 hover:text-white"
+                className="flex h-10 w-10 items-center justify-center cursor-pointer rounded-full bg-gray-900 text-gray-400 transition hover:bg-blue-600 hover:text-white"
               >
-                <Facebook size={18} />
+                <FaFacebook size={18} />
               </button>
 
               <button
                 type="button"
                 aria-label="YouTube"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-900 text-gray-400 transition hover:bg-red-600 hover:text-white"
+                className="flex h-10 w-10 items-center justify-center cursor-pointer rounded-full bg-gray-900 text-gray-400 transition hover:bg-red-600 hover:text-white"
               >
-                <Youtube size={18} />
+                <BsYoutube size={18} />
               </button>
 
               <button
                 type="button"
                 aria-label="Instagram"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-900 text-gray-400 transition hover:bg-pink-600 hover:text-white"
+                className="flex h-10 w-10 items-center justify-center cursor-pointer rounded-full bg-gray-900 text-gray-400 transition hover:bg-pink-600 hover:text-white"
               >
-                <Instagram size={18} />
+                <BsInstagram size={18} />
               </button>
 
               <button
                 type="button"
                 aria-label="LinkedIn"
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-gray-900 text-gray-400 transition hover:bg-blue-700 hover:text-white"
+                className="flex h-10 w-10 items-center justify-center cursor-pointer rounded-full bg-gray-900 text-gray-400 transition hover:bg-blue-700 hover:text-white"
               >
-                <Linkedin size={18} />
+                <LiaLinkedin size={18} />
               </button>
-            </div> */}
+            </div>
           </div>
 
           {/* Quick Links */}
@@ -252,7 +255,7 @@ const Footer = () => {
             type="button"
             onClick={scrollToTop}
             aria-label="Scroll to top"
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white transition hover:-translate-y-1 hover:bg-blue-700"
+            className="flex h-10 w-10 items-center justify-center cursor-pointer rounded-full cursor-pointer bg-blue-600 text-white transition hover:-translate-y-1 hover:bg-blue-700"
           >
             <ArrowUp size={19} />
           </button>

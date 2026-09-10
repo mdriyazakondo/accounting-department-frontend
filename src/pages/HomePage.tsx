@@ -1,157 +1,88 @@
-import {
-  ArrowRight,
-  BookOpenCheck,
-  CalendarDays,
-  GraduationCap,
-  Users,
-} from "lucide-react";
+import { ArrowRight, BookOpenCheck, GraduationCap, Users } from "lucide-react";
 import { Link } from "react-router";
-
-const highlights = [
-  {
-    icon: BookOpenCheck,
-    value: "24+",
-    label: "Academic programs",
-  },
-  {
-    icon: Users,
-    value: "3,200",
-    label: "Students learning",
-  },
-  {
-    icon: GraduationCap,
-    value: "96%",
-    label: "Graduate success",
-  },
-];
 
 const HomePage = () => {
   return (
     <div className="overflow-hidden">
-      <section className="relative isolate bg-slate-950 text-white">
-        <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_80%_20%,rgba(37,99,235,0.42),transparent_32%),linear-gradient(120deg,#0f172a_0%,#172554_100%)]" />
-        <div className="mx-auto grid max-w-7xl gap-12 px-4 py-20 sm:px-6 lg:grid-cols-[1.1fr_0.9fr] lg:items-center lg:px-8 lg:py-28">
-          <div className="max-w-2xl">
-            <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-300/30 bg-blue-400/10 px-4 py-2 text-sm font-semibold text-blue-200">
-              <span className="h-2 w-2 rounded-full bg-emerald-400" />
-              Admissions are open for 2026
-            </p>
-            <h1 className="text-4xl font-black tracking-tight sm:text-6xl">
-              Learn with purpose. Lead with confidence.
-            </h1>
-            <p className="mt-6 max-w-xl text-lg leading-8 text-slate-300">
-              ABC College helps curious students turn strong foundations into
-              meaningful careers through practical learning and a supportive
-              campus community.
-            </p>
-            <div className="mt-9 flex flex-wrap gap-4">
-              <Link
-                to="/admission"
-                className="inline-flex items-center gap-2 rounded-lg bg-blue-500 px-5 py-3 font-bold text-white transition hover:bg-blue-400"
-              >
-                Start your application <ArrowRight size={18} />
-              </Link>
-              <Link
-                to="/about"
-                className="inline-flex items-center gap-2 rounded-lg border border-slate-600 px-5 py-3 font-bold text-slate-100 transition hover:border-blue-300 hover:text-blue-200"
-              >
-                Explore the college
-              </Link>
-            </div>
-          </div>
-          <div className="relative mx-auto w-full max-w-md">
-            <div className="rounded-2xl border border-white/15 bg-white/10 p-6 shadow-2xl backdrop-blur-sm">
-              <div className="flex items-center justify-between border-b border-white/10 pb-5">
-                <div>
-                  <p className="text-sm text-blue-200">This week at ABC</p>
-                  <h2 className="mt-1 text-2xl font-bold">Campus life</h2>
-                </div>
-                <CalendarDays className="text-blue-300" size={28} />
-              </div>
-              <div className="space-y-4 pt-5">
-                {[
-                  ["Mon", "Orientation & welcome", "09:00"],
-                  ["Wed", "Accounting society meet", "14:30"],
-                  ["Fri", "Career talk: Finance", "11:00"],
-                ].map(([day, title, time]) => (
-                  <div key={title} className="flex items-center gap-4">
-                    <span className="w-10 text-sm font-bold text-blue-200">
-                      {day}
-                    </span>
-                    <div className="min-w-0 flex-1 border-l border-white/15 pl-4">
-                      <p className="truncate font-semibold">{title}</p>
-                      <p className="mt-1 text-sm text-slate-400">Main campus</p>
-                    </div>
-                    <span className="text-sm text-slate-300">{time}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <section className="relative isolate min-h-screen flex items-center bg-slate-950 text-white">
+        {/* Background Image Container */}
+        <div
+          className="absolute inset-0 -z-10 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: `linear-gradient(to right, rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.5)), url('https://images.unsplash.com/photo-1541339907198-e08756dedf3f?q=80&w=1920&auto=format&fit=crop')`,
+          }}
+        />
 
-      <section className="border-b border-slate-200 bg-white dark:border-slate-800 dark:bg-slate-900">
-        <div className="mx-auto grid max-w-7xl gap-6 px-4 py-8 sm:grid-cols-3 sm:px-6 lg:px-8">
-          {highlights.map(({ icon: Icon, value, label }) => (
-            <div
-              key={label}
-              className="flex items-center gap-4 sm:justify-center"
-            >
-              <Icon className="text-blue-600 dark:text-blue-400" size={25} />
-              <div>
-                <p className="text-2xl font-black text-slate-950 dark:text-white">
-                  {value}
-                </p>
-                <p className="text-sm text-slate-500 dark:text-slate-400">
-                  {label}
-                </p>
+        <section className="w-full">
+          <div className="mx-auto max-w-7xl px-6 py-20 lg:px-8">
+            <div className="max-w-3xl">
+              {/* Small Badge */}
+              <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-4 py-2 text-sm font-medium backdrop-blur-sm">
+                <GraduationCap className="h-5 w-5" />
+                Welcome to Our College
               </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
-      <section className="mx-auto max-w-7xl px-4 py-20 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-          <div>
-            <p className="text-sm font-bold uppercase tracking-[0.2em] text-blue-600 dark:text-blue-400">
-              Your next chapter
-            </p>
-            <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950 dark:text-white sm:text-4xl">
-              A college experience built around your future.
-            </h2>
-          </div>
-          <p className="max-w-2xl text-lg leading-8 text-slate-600 dark:text-slate-300">
-            Find your people, sharpen your skills, and make ideas useful. Our
-            departments connect classroom knowledge to the world beyond campus.
-          </p>
-        </div>
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {["Accounting", "Management", "Economics"].map(
-            (department, index) => (
-              <Link
-                key={department}
-                to={`/departments/${department.toLowerCase()}`}
-                className="group rounded-xl border border-slate-200 bg-white p-6 transition hover:-translate-y-1 hover:border-blue-300 hover:shadow-xl dark:border-slate-800 dark:bg-slate-900 dark:hover:border-blue-700"
-              >
-                <span className="text-sm font-bold text-blue-600 dark:text-blue-400">
-                  0{index + 1}
+              {/* Heading */}
+              <h1 className="text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-7xl">
+                Build Your Future
+                <span className="block text-blue-400">
+                  With Quality Education
                 </span>
-                <h3 className="mt-12 text-xl font-bold text-slate-950 group-hover:text-blue-600 dark:text-white dark:group-hover:text-blue-400">
-                  {department}
-                </h3>
-                <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
-                  Explore courses, faculty, and opportunities.
-                </p>
-                <ArrowRight
-                  className="mt-6 text-slate-400 transition group-hover:translate-x-1 group-hover:text-blue-600"
-                  size={20}
-                />
-              </Link>
-            ),
-          )}
-        </div>
+              </h1>
+
+              {/* Description */}
+              <p className="mt-6 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
+                Discover a place where knowledge meets opportunity. Our college
+                provides quality education, experienced teachers, modern
+                facilities, and a supportive environment to help students
+                achieve their dreams.
+              </p>
+
+              {/* Buttons */}
+              <div className="mt-8 flex flex-wrap gap-4">
+                <Link
+                  to="/admission"
+                  className="group inline-flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-3.5 font-semibold text-white transition-all duration-300 hover:bg-blue-700"
+                >
+                  Apply for Admission
+                  <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1" />
+                </Link>
+
+                <Link
+                  to="/about"
+                  className="inline-flex items-center rounded-lg border border-white/30 bg-white/10 px-6 py-3.5 font-semibold text-white backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-slate-900"
+                >
+                  Explore College
+                </Link>
+              </div>
+
+              {/* Stats */}
+              <div className="mt-12 grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3">
+                <div className="rounded-xl border border-white/10 bg-white/10 p-5 backdrop-blur-md">
+                  <BookOpenCheck className="mb-3 h-7 w-7 text-blue-400" />
+                  <h3 className="text-2xl font-bold">24+</h3>
+                  <p className="mt-1 text-sm text-slate-300">
+                    Academic Programs
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-white/10 bg-white/10 p-5 backdrop-blur-md">
+                  <Users className="mb-3 h-7 w-7 text-blue-400" />
+                  <h3 className="text-2xl font-bold">3,200+</h3>
+                  <p className="mt-1 text-sm text-slate-300">
+                    Students Learning
+                  </p>
+                </div>
+
+                <div className="rounded-xl border border-white/10 bg-white/10 p-5 backdrop-blur-md">
+                  <GraduationCap className="mb-3 h-7 w-7 text-blue-400" />
+                  <h3 className="text-2xl font-bold">98%</h3>
+                  <p className="mt-1 text-sm text-slate-300">Success Rate</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
       </section>
     </div>
   );
