@@ -8,7 +8,7 @@ import OfficeAssistantRegistrationForm from "../auth/OfficeAssistantRegistration
 import LoginForm from "../auth/Login";
 import AuthLayout from "../layout/AuthLayout";
 import DashboardLayout from "../layout/DashbordLyaout";
-import Homepage from "../pages/HomePage";
+import Homepage from "../pages/Home/HomePage";
 
 const router = createBrowserRouter([
   // Main Website
