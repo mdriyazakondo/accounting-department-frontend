@@ -11,16 +11,59 @@ import {
   Upload,
   Phone,
   Droplets,
+  Loader2,
 } from "lucide-react";
-
+import { useMutation } from "@tanstack/react-query";
 import type { OfficeAssistantFormData } from "../types/LoignType";
+import { toast } from "sonner";
+
+// API Call Function
+const postStudentData = async (data: OfficeAssistantFormData) => {
+  const response = await fetch("http://localhost:3000/api/v1/users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Registration failed!");
+  }
+
+  return response.json();
+};
 
 const OfficeAssistantRegistrationForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<OfficeAssistantFormData>();
+
+  // TanStack Query Mutation
+  const { mutate, isPending } = useMutation({
+    mutationFn: postStudentData,
+    onSuccess: () => {
+      // Premium Modern Toast Notification
+      toast.success("Student Profile Created!", {
+        description:
+          "The student has been successfully registered to the system.",
+      });
+      reset();
+    },
+    onError: (err: Error) => {
+      toast.error("Registration Failed", {
+        description: err.message || "Something went wrong during registration.",
+      });
+    },
+  });
+
+  const onSubmit = (data: OfficeAssistantFormData) => {
+    mutate(data);
+  };
 
   return (
     <div className="min-h-screen bg-slate-100 px-4 py-10 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-white sm:px-6 lg:px-8">
@@ -43,7 +86,7 @@ const OfficeAssistantRegistrationForm = () => {
 
         {/* Form */}
         <form
-          onSubmit={handleSubmit((data) => console.log(data))}
+          onSubmit={handleSubmit(onSubmit)}
           className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl transition-colors duration-300 dark:border-slate-800 dark:bg-slate-900"
         >
           {/* Form Header */}
@@ -241,7 +284,7 @@ const OfficeAssistantRegistrationForm = () => {
                     />
 
                     <select
-                      {...register("bloodGroup", {
+                      {...register("blood_group", {
                         required: "Blood group is required",
                       })}
                       className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white"
@@ -258,9 +301,9 @@ const OfficeAssistantRegistrationForm = () => {
                     </select>
                   </div>
 
-                  {errors.bloodGroup && (
+                  {errors.blood_group && (
                     <p className="mt-1 text-xs text-red-500">
-                      {errors.bloodGroup.message}
+                      {errors.blood_group.message}
                     </p>
                   )}
                 </div>
@@ -313,7 +356,7 @@ const OfficeAssistantRegistrationForm = () => {
                     />
 
                     <input
-                      {...register("employeeId", {
+                      {...register("employee_id", {
                         required: "Employee ID is required",
                       })}
                       placeholder="Enter employee ID"
@@ -321,9 +364,9 @@ const OfficeAssistantRegistrationForm = () => {
                     />
                   </div>
 
-                  {errors.employeeId && (
+                  {errors.employee_id && (
                     <p className="mt-1 text-xs text-red-500">
-                      {errors.employeeId.message}
+                      {errors.employee_id.message}
                     </p>
                   )}
                 </div>
@@ -417,7 +460,7 @@ const OfficeAssistantRegistrationForm = () => {
                     />
 
                     <select
-                      {...register("joiningYear", {
+                      {...register("joining_year", {
                         required: "Joining year is required",
                       })}
                       className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white"
@@ -433,9 +476,9 @@ const OfficeAssistantRegistrationForm = () => {
                     </select>
                   </div>
 
-                  {errors.joiningYear && (
+                  {errors.joining_year && (
                     <p className="mt-1 text-xs text-red-500">
-                      {errors.joiningYear.message}
+                      {errors.joining_year.message}
                     </p>
                   )}
                 </div>
@@ -480,9 +523,11 @@ const OfficeAssistantRegistrationForm = () => {
           <div className="flex justify-end border-t border-slate-200 bg-slate-50 px-6 py-5 dark:border-slate-800 dark:bg-slate-800/70 sm:px-8">
             <button
               type="submit"
-              className="rounded-xl bg-slate-900 px-8 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-slate-800 active:scale-95 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
+              disabled={isPending}
+              className="flex items-center gap-2 rounded-xl bg-slate-900 px-8 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-slate-800 active:scale-95 disabled:opacity-50 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
             >
-              Register Office Assistant
+              {isPending && <Loader2 className="h-4 w-4 animate-spin" />}
+              {isPending ? "Registering..." : "Register Student"}
             </button>
           </div>
         </form>

@@ -1,4 +1,6 @@
 import { useForm } from "react-hook-form";
+import { useMutation } from "@tanstack/react-query";
+import { toast } from "sonner";
 import {
   User,
   Mail,
@@ -11,15 +13,57 @@ import {
   MapPin,
   CalendarDays,
   Upload,
+  Loader2,
 } from "lucide-react";
 import type { StudentFormData } from "../types/LoignType";
+
+// API Call Function
+const postStudentData = async (data: StudentFormData) => {
+  const response = await fetch("http://localhost:3000/api/v1/users", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || "Registration failed!");
+  }
+
+  return response.json();
+};
 
 const StudentRegistrationForm = () => {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<StudentFormData>();
+
+  // TanStack Query Mutation
+  const { mutate, isPending } = useMutation({
+    mutationFn: postStudentData,
+    onSuccess: () => {
+      // Premium Modern Toast Notification
+      toast.success("Student Profile Created!", {
+        description:
+          "The student has been successfully registered to the system.",
+      });
+      reset();
+    },
+    onError: (err: Error) => {
+      toast.error("Registration Failed", {
+        description: err.message || "Something went wrong during registration.",
+      });
+    },
+  });
+
+  const onSubmit = (data: StudentFormData) => {
+    mutate(data);
+  };
 
   return (
     <div className="min-h-screen bg-slate-100 px-4 py-10 text-slate-900 transition-colors duration-300 dark:bg-slate-950 dark:text-white sm:px-6 lg:px-8">
@@ -41,7 +85,7 @@ const StudentRegistrationForm = () => {
 
         {/* Form */}
         <form
-          onSubmit={handleSubmit((data) => console.log(data))}
+          onSubmit={handleSubmit(onSubmit)}
           className="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-xl transition-colors duration-300 dark:border-slate-800 dark:bg-slate-900"
         >
           {/* Form Header */}
@@ -56,14 +100,13 @@ const StudentRegistrationForm = () => {
           </div>
 
           <div className="space-y-10 p-6 sm:p-8">
-            {/* ================= PHOTO ================= */}
+            {/* PHOTO SECTION */}
             <section>
               <h3 className="mb-5 text-lg font-bold text-slate-900 dark:text-white">
                 Profile Photo
               </h3>
 
               <div className="flex flex-col gap-5 sm:flex-row sm:items-center">
-                {/* Photo Box */}
                 <div className="flex h-32 w-32 shrink-0 items-center justify-center overflow-hidden rounded-2xl border-2 border-dashed border-slate-300 bg-slate-50 dark:border-slate-700 dark:bg-slate-800">
                   <User
                     size={45}
@@ -71,7 +114,6 @@ const StudentRegistrationForm = () => {
                   />
                 </div>
 
-                {/* Upload */}
                 <label className="flex cursor-pointer flex-col items-center justify-center rounded-2xl border-2 border-dashed border-slate-300 px-8 py-6 text-center transition hover:border-slate-500 hover:bg-slate-50 dark:border-slate-700 dark:hover:border-slate-500 dark:hover:bg-slate-800">
                   <Upload
                     size={25}
@@ -96,11 +138,10 @@ const StudentRegistrationForm = () => {
               </div>
             </section>
 
-            {/* ================= PERSONAL INFO ================= */}
+            {/* PERSONAL INFO */}
             <section>
               <div className="mb-5 flex items-center gap-3">
                 <div className="h-6 w-1 rounded-full bg-slate-900 dark:bg-white" />
-
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                   Personal Information
                 </h3>
@@ -112,22 +153,17 @@ const StudentRegistrationForm = () => {
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                     Full Name <span className="text-red-500">*</span>
                   </label>
-
                   <div className="relative">
                     <User
                       size={18}
                       className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                     />
-
                     <input
-                      {...register("name", {
-                        required: "Name is required",
-                      })}
+                      {...register("name", { required: "Name is required" })}
                       placeholder="Enter full name"
                       className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white dark:focus:bg-slate-800"
                     />
                   </div>
-
                   {errors.name && (
                     <p className="mt-1 text-xs text-red-500">
                       {errors.name.message}
@@ -140,23 +176,18 @@ const StudentRegistrationForm = () => {
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                     Email Address <span className="text-red-500">*</span>
                   </label>
-
                   <div className="relative">
                     <Mail
                       size={18}
                       className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                     />
-
                     <input
                       type="email"
-                      {...register("email", {
-                        required: "Email is required",
-                      })}
+                      {...register("email", { required: "Email is required" })}
                       placeholder="student@example.com"
                       className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white dark:focus:bg-slate-800"
                     />
                   </div>
-
                   {errors.email && (
                     <p className="mt-1 text-xs text-red-500">
                       {errors.email.message}
@@ -169,13 +200,11 @@ const StudentRegistrationForm = () => {
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                     Password <span className="text-red-500">*</span>
                   </label>
-
                   <div className="relative">
                     <Lock
                       size={18}
                       className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                     />
-
                     <input
                       type="password"
                       {...register("password", {
@@ -189,7 +218,6 @@ const StudentRegistrationForm = () => {
                       className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white dark:focus:bg-slate-800"
                     />
                   </div>
-
                   {errors.password && (
                     <p className="mt-1 text-xs text-red-500">
                       {errors.password.message}
@@ -202,13 +230,11 @@ const StudentRegistrationForm = () => {
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                     Position
                   </label>
-
                   <div className="relative">
                     <Briefcase
                       size={18}
                       className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                     />
-
                     <input
                       {...register("position")}
                       placeholder="e.g. Student / CR"
@@ -222,15 +248,13 @@ const StudentRegistrationForm = () => {
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                     Blood Group <span className="text-red-500">*</span>
                   </label>
-
                   <div className="relative">
                     <Droplets
                       size={18}
                       className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                     />
-
                     <select
-                      {...register("bloodGroup", {
+                      {...register("blood_group", {
                         required: "Blood group is required",
                       })}
                       className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white"
@@ -246,10 +270,9 @@ const StudentRegistrationForm = () => {
                       <option value="O-">O-</option>
                     </select>
                   </div>
-
-                  {errors.bloodGroup && (
+                  {errors.blood_group && (
                     <p className="mt-1 text-xs text-red-500">
-                      {errors.bloodGroup.message}
+                      {errors.blood_group.message}
                     </p>
                   )}
                 </div>
@@ -259,36 +282,32 @@ const StudentRegistrationForm = () => {
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                     Student ID Number <span className="text-red-500">*</span>
                   </label>
-
                   <div className="relative">
                     <IdCard
                       size={18}
                       className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                     />
-
                     <input
-                      {...register("studentId", {
+                      {...register("student_id", {
                         required: "Student ID is required",
                       })}
                       placeholder="Enter student ID"
                       className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white dark:focus:bg-slate-800"
                     />
                   </div>
-
-                  {errors.studentId && (
+                  {errors.student_id && (
                     <p className="mt-1 text-xs text-red-500">
-                      {errors.studentId.message}
+                      {errors.student_id.message}
                     </p>
                   )}
                 </div>
               </div>
             </section>
 
-            {/* ================= ACADEMIC INFO ================= */}
+            {/* ACADEMIC INFO */}
             <section>
               <div className="mb-5 flex items-center gap-3">
                 <div className="h-6 w-1 rounded-full bg-slate-900 dark:bg-white" />
-
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                   Academic Information
                 </h3>
@@ -300,13 +319,11 @@ const StudentRegistrationForm = () => {
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                     Department <span className="text-red-500">*</span>
                   </label>
-
                   <div className="relative">
                     <Building2
                       size={18}
                       className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                     />
-
                     <select
                       {...register("department", {
                         required: "Department is required",
@@ -327,7 +344,6 @@ const StudentRegistrationForm = () => {
                       </option>
                     </select>
                   </div>
-
                   {errors.department && (
                     <p className="mt-1 text-xs text-red-500">
                       {errors.department.message}
@@ -340,15 +356,13 @@ const StudentRegistrationForm = () => {
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                     Class Role <span className="text-red-500">*</span>
                   </label>
-
                   <div className="relative">
                     <GraduationCap
                       size={18}
                       className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                     />
-
                     <select
-                      {...register("classRole", {
+                      {...register("class_role", {
                         required: "Class role is required",
                       })}
                       className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white"
@@ -364,33 +378,31 @@ const StudentRegistrationForm = () => {
                       <option value="Group Leader">Group Leader</option>
                     </select>
                   </div>
-
-                  {errors.classRole && (
+                  {errors.class_role && (
                     <p className="mt-1 text-xs text-red-500">
-                      {errors.classRole.message}
+                      {errors.class_role.message}
                     </p>
                   )}
                 </div>
 
-                {/* Year */}
+                {/* academic_year */}
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Academic Year <span className="text-red-500">*</span>
+                    Academic academic_year{" "}
+                    <span className="text-red-500">*</span>
                   </label>
-
                   <div className="relative">
                     <CalendarDays
                       size={18}
                       className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                     />
-
                     <select
-                      {...register("year", {
-                        required: "Academic year is required",
+                      {...register("academic_year", {
+                        required: "Academic academic_year is required",
                       })}
                       className="w-full appearance-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white"
                     >
-                      <option value="">Select Year</option>
+                      <option value="">Select academic_year</option>
                       <option value="2024">2024</option>
                       <option value="2025">2025</option>
                       <option value="2026">2026</option>
@@ -399,24 +411,23 @@ const StudentRegistrationForm = () => {
                       <option value="2029">2029</option>
                     </select>
                   </div>
-
-                  {errors.year && (
+                  {errors.academic_year && (
                     <p className="mt-1 text-xs text-red-500">
-                      {errors.year.message}
+                      {errors.academic_year.message}
                     </p>
                   )}
                 </div>
+
+                {/* System Role */}
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                     Role <span className="text-red-500">*</span>
                   </label>
-
                   <div className="relative">
                     <CalendarDays
                       size={18}
                       className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                     />
-
                     <select
                       {...register("role", {
                         required: "Role is required",
@@ -427,7 +438,6 @@ const StudentRegistrationForm = () => {
                       <option value="Student">Student</option>
                     </select>
                   </div>
-
                   {errors.role && (
                     <p className="mt-1 text-xs text-red-500">
                       {errors.role.message}
@@ -437,11 +447,10 @@ const StudentRegistrationForm = () => {
               </div>
             </section>
 
-            {/* ================= FAMILY INFO ================= */}
+            {/* FAMILY INFO */}
             <section>
               <div className="mb-5 flex items-center gap-3">
                 <div className="h-6 w-1 rounded-full bg-slate-900 dark:bg-white" />
-
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                   Family Information
                 </h3>
@@ -453,25 +462,22 @@ const StudentRegistrationForm = () => {
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                     Father's Name <span className="text-red-500">*</span>
                   </label>
-
                   <div className="relative">
                     <User
                       size={18}
                       className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                     />
-
                     <input
-                      {...register("fatherName", {
+                      {...register("father_name", {
                         required: "Father's name is required",
                       })}
                       placeholder="Enter father's name"
                       className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white dark:focus:bg-slate-800"
                     />
                   </div>
-
-                  {errors.fatherName && (
+                  {errors.father_name && (
                     <p className="mt-1 text-xs text-red-500">
-                      {errors.fatherName.message}
+                      {errors.father_name.message}
                     </p>
                   )}
                 </div>
@@ -481,36 +487,32 @@ const StudentRegistrationForm = () => {
                   <label className="mb-2 block text-sm font-semibold text-slate-700 dark:text-slate-300">
                     Mother's Name <span className="text-red-500">*</span>
                   </label>
-
                   <div className="relative">
                     <User
                       size={18}
                       className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400"
                     />
-
                     <input
-                      {...register("motherName", {
+                      {...register("mother_name", {
                         required: "Mother's name is required",
                       })}
                       placeholder="Enter mother's name"
                       className="w-full rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white dark:focus:bg-slate-800"
                     />
                   </div>
-
-                  {errors.motherName && (
+                  {errors.mother_name && (
                     <p className="mt-1 text-xs text-red-500">
-                      {errors.motherName.message}
+                      {errors.mother_name.message}
                     </p>
                   )}
                 </div>
               </div>
             </section>
 
-            {/* ================= ADDRESS ================= */}
+            {/* ADDRESS */}
             <section>
               <div className="mb-5 flex items-center gap-3">
                 <div className="h-6 w-1 rounded-full bg-slate-900 dark:bg-white" />
-
                 <h3 className="text-lg font-bold text-slate-900 dark:text-white">
                   Address Information
                 </h3>
@@ -521,7 +523,6 @@ const StudentRegistrationForm = () => {
                   size={18}
                   className="absolute left-4 top-4 text-slate-400"
                 />
-
                 <textarea
                   {...register("address", {
                     required: "Address is required",
@@ -531,7 +532,6 @@ const StudentRegistrationForm = () => {
                   className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-11 py-3.5 text-sm text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-slate-900 focus:bg-white dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:border-white dark:focus:bg-slate-800"
                 />
               </div>
-
               {errors.address && (
                 <p className="mt-1 text-xs text-red-500">
                   {errors.address.message}
@@ -544,9 +544,11 @@ const StudentRegistrationForm = () => {
           <div className="flex justify-end border-t border-slate-200 bg-slate-50 px-6 py-5 dark:border-slate-800 dark:bg-slate-800/70 sm:px-8">
             <button
               type="submit"
-              className="rounded-xl bg-slate-900 px-8 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-slate-800 active:scale-95 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
+              disabled={isPending}
+              className="flex items-center gap-2 rounded-xl bg-slate-900 px-8 py-3 text-sm font-semibold text-white shadow-lg transition hover:bg-slate-800 active:scale-95 disabled:opacity-50 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200"
             >
-              Register Student
+              {isPending && <Loader2 className="h-4 w-4 animate-spin" />}
+              {isPending ? "Registering..." : "Register Student"}
             </button>
           </div>
         </form>
